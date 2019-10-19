@@ -16,7 +16,7 @@ func main() {
 		{16, 1},
 	}
 	intMap := bst.Tree{}
-	intMap.Add(&assoc.Element{Key: &comparable.Integer{Value: 10}, Value: 97})
+	intMap.Add(&assoc.Element{Key: &comparable.Integer{Value: 9}, Value: 97})
 	for _, i := range intMapInit {
 		intMap.Add(&assoc.Element{Key: &comparable.Integer{Value: i[0]}, Value: i[1]})
 	}
@@ -30,10 +30,11 @@ func main() {
 		{"f", 1},
 	}
 	strMap := bst.Tree{}
-	strMap.Add(&assoc.Element{Key: &comparable.String{Value: "z"}, Value: 97}) //TODO: fix when key equals "a"
 	for _, i := range strMapInit {
 		strMap.Add(&assoc.Element{Key: &comparable.String{Value: i[0].(string)}, Value: i[1]})
 	}
-	// don't mix up key types if no comparison between said types
-	// using comparable.Interface methods override
+	//strMap.Add(&assoc.Element{Key: &comparable.String{Value: "a"}, Value: 97}) // panic
+	strMap.Set(&comparable.String{Value: "a"}, 97)
+	// don't mix up key types if comparison between them is not provided
+	// using comparable.Interface methods overriding
 }

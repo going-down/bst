@@ -8,4 +8,5 @@ import (
 type Interface interface {
 	Add(element element.Interface)
 	Find(key comparable.Interface) *interface{}
+	Set(key comparable.Interface, value interface{})
 }
