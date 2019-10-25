@@ -1,0 +1,1 @@
+go build . errors && go test -i && go test && go vet && golint ;
