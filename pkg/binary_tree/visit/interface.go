@@ -5,13 +5,13 @@ import (
 )
 
 type Interface interface {
-	Visit(element *element.Interface)
+	Visit(element element.Interface)
 }
 
 type SideEffect struct {
-	callable func(node *element.Interface)
+	Callable func(element element.Interface)
 }
 
-func (visitor *SideEffect) Visit(node *element.Interface) {
-	visitor.callable(node)
+func (visitor *SideEffect) Visit(element element.Interface) {
+	visitor.Callable(element)
 }

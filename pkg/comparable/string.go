@@ -12,6 +12,6 @@ func (ref *String) Greater(other Interface) bool {
 	return ref.Value > other.(*String).Value
 }
 
-func (ref *String) Equal(other Interface) bool {
-	return ref.Value == other.(*String).Value
+func MakeString(value string) Interface {
+	return &String{Value: value}
 }

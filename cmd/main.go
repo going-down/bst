@@ -3,8 +3,11 @@ package main
 import (
 	"fmt"
 	"github.com/going-down/bst/pkg/assoc"
+	"github.com/going-down/bst/pkg/binary_tree/visit"
+	"github.com/going-down/bst/pkg/binary_tree/walk"
 	"github.com/going-down/bst/pkg/bst"
 	"github.com/going-down/bst/pkg/comparable"
+	"github.com/going-down/bst/pkg/element"
 )
 
 func main() {
@@ -21,7 +24,13 @@ func main() {
 	for _, i := range intMapInit {
 		intMap.Add(&assoc.Element{Key: &comparable.Integer{Value: i[0]}, Value: i[1]})
 	}
-	fmt.Print((*intMap.Find(&comparable.Integer{Value: 14})).(int))
+	intMap.Iterate(&bst.Walker{
+		Visitor: &visit.SideEffect{Callable: func(element element.Interface) {
+			fmt.Printf("%d: %d\n", element.GetKey().(*comparable.Integer).Value, (*element.GetValue()).(int))
+		}},
+		WalkSequence: walk.Sequence{walk.Left, walk.Data, walk.Right},
+	})
+
 	strMapInit := [][]interface{}{
 		{"a", 1},
 		{"b", 1},
@@ -36,7 +45,6 @@ func main() {
 	}
 	//strMap.Add(&assoc.Element{Key: &comparable.String{Value: "a"}, Value: 97}) // panic
 	strMap.Set(&comparable.String{Value: "a"}, 97)
-	//strMap.Set(&comparable.Integer{Value: 3}, 97)
 	// don't mix up key types if comparison between them is not provided
 	// using comparable.Interface methods overriding
 }
